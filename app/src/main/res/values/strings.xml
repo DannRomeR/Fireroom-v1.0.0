@@ -27,4 +27,12 @@
     <string name="post_pic_description">Shared picture</string>
     <string name="agent_name">Agent name</string>
     <string name="lorem_ipsum">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis vestibulum scelerisque luctus. Pellentesque ut malesuada orci. </string>
+    <string name="phone_code_instructions">Input the verification code sent to your phone</string>
+    <string name="phone_number_instructions">Input your phone number to send you a verification code by SMS</string>
+    <string name="verification_code_hint">Verification code</string>
+    <string name="phone_number_hint">Phone number</string>
+    <string name="cancel">Cancel</string>
+    <string name="new_account_instructions">Register your email and setup your password</string>
+    <string name="confirm_password">Confirm password</string>
+    <string name="create_account">Create account</string>
 </resources>
