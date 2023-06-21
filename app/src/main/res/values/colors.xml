@@ -7,4 +7,11 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="firebase_yellow">#FFFFCA28</color>
+    <color name="firebase_amber">#FFFFA000</color>
+    <color name="firebase_orange">#FFF57C00</color>
+    <color name="firebase_blue">#FF039BE5</color>
+    <color name="firebase_navy">#FF2C384A</color>
+    <color name="firebase_coral">#FFFF8A65</color>
+    <color name="firebase_grey">#FFECEFF1</color>
 </resources>

@@ -1,3 +1,30 @@
 <resources>
-    <string name="app_name">Fireroom v1.0.0</string>
+    <string name="app_name">Fireroom</string>
+    <string name="title_activity_navigation">NavigationActivity</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_username">Firebase support agent</string>
+    <string name="nav_header_email">ldap@google.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_logout">Logout</string>
+
+    <string name="menu_posts">Posts</string>
+    <string name="menu_shifts">Shifts</string>
+    <string name="menu_onboarding">Onboarding</string>
+    <string name="photo_desc">Profile pic</string>
+    <string name="sign_in">Sign In</string>
+    <string name="email">email</string>
+    <string name="password">password</string>
+    <string name="log_in">Log In</string>
+    <string name="forgot_your_password">Forgot your password?</string>
+    <string name="or_access_with">Or access with:</string>
+    <string name="phone">Phone</string>
+    <string name="doesn_t_have_an_account">Doesn\'t have an account?</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="add_post">Add post</string>
+    <string name="like">Like</string>
+    <string name="comment">Comment</string>
+    <string name="post_pic_description">Shared picture</string>
+    <string name="agent_name">Agent name</string>
+    <string name="lorem_ipsum">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis vestibulum scelerisque luctus. Pellentesque ut malesuada orci. </string>
 </resources>
