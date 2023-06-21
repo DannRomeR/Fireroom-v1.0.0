@@ -19,7 +19,7 @@
             >
             <ImageView
                 android:contentDescription="@string/photo_desc"
-                android:id="@+id/profile_pic_id"
+                android:id="@+id/post_profilePic_imageView"
                 android:layout_width="35dp"
                 android:layout_height="35dp"
                 app:layout_constraintTop_toTopOf="parent"
@@ -30,7 +30,7 @@
                 />
 
             <TextView
-                android:id="@+id/agentName"
+                android:id="@+id/post_agentName_textView"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
@@ -39,13 +39,13 @@
                 android:textSize="25sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/profile_pic_id"
+                app:layout_constraintStart_toEndOf="@id/post_profilePic_imageView"
                 app:layout_constraintTop_toTopOf="parent" />
             <TextView
-                android:id="@+id/contentPost"
+                android:id="@+id/post_content_textView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/agentName"
+                app:layout_constraintTop_toBottomOf="@id/post_agentName_textView"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:layout_marginTop="15dp"
@@ -54,7 +54,7 @@
                 />
 
             <ImageView
-                android:id="@+id/picPost"
+                android:id="@+id/post_picture_imageView"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
                 android:layout_marginTop="10dp"
@@ -63,19 +63,19 @@
                 app:layout_constraintStart_toStartOf="parent"
                 android:backgroundTint="?attr/colorOnPrimary"
                 android:textColor="?attr/colorOnSecondary"
-                app:layout_constraintTop_toBottomOf="@id/contentPost"
+                app:layout_constraintTop_toBottomOf="@id/post_content_textView"
                 tools:srcCompat="@drawable/baseline_image_24"
                 android:src="@drawable/baseline_image_24"
                 android:contentDescription="@string/post_pic_description" />
 
             <Button
-                android:id="@+id/likeBtn"
+                android:id="@+id/post_like_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:drawableStart="@drawable/baseline_star_24"
                 android:text="@string/like"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/picPost"
+                app:layout_constraintTop_toBottomOf="@id/post_picture_imageView"
                 app:layout_constraintBottom_toBottomOf="parent"
                 android:backgroundTint="?attr/colorOnPrimary"
                 android:textColor="?attr/colorOnSecondary"
@@ -83,7 +83,7 @@
                 />
 
             <Button
-                android:id="@+id/commentBtn"
+                android:id="@+id/post_comment_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
@@ -93,15 +93,11 @@
                 android:text="@string/comment"
                 android:textColor="?attr/colorOnSecondary"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@id/likeBtn"
-                app:layout_constraintTop_toBottomOf="@id/picPost" />
+                app:layout_constraintStart_toEndOf="@id/post_like_button"
+                app:layout_constraintTop_toBottomOf="@id/post_picture_imageView" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-
-
 
     </androidx.cardview.widget.CardView>
 </layout>
