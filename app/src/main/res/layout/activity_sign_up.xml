@@ -47,7 +47,7 @@
                 android:autofillHints="emailAddress"
                 android:inputType="textEmailAddress"
                 android:maxWidth="480dp"
-                tools:ignore="VisualLintTextFieldSize" />
+                app:layout_constraintWidth_max="480dp" />
             <EditText
                 android:layout_marginTop="25dp"
                 android:layout_width="match_parent"
@@ -56,7 +56,8 @@
                 android:hint="@string/password"
                 android:inputType="textPassword"
                 android:importantForAutofill="no"
-                android:maxWidth="480dp" />
+                android:maxWidth="480dp"
+                app:layout_constraintWidth_max="480dp"/>
             <EditText
                 android:layout_marginTop="25dp"
                 android:layout_width="match_parent"
@@ -66,7 +67,7 @@
                 android:inputType="textPassword"
                 android:importantForAutofill="no"
                 android:maxWidth="480dp"
-                tools:ignore="VisualLintTextFieldSize" />
+                app:layout_constraintWidth_max="480dp" />
             <Button
                 android:layout_marginTop="45dp"
                 android:layout_width="match_parent"
