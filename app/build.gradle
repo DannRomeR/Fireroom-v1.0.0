@@ -4,6 +4,21 @@ plugins {
 }
 
 android {
+    signingConfigs {
+        debug {
+            storeFile file('/path/to/keystore')
+            storePassword 'storepassword'
+            keyAlias 'key0' // I name my first alias with this key, If the team wanted
+                            // I can change the alias to "debug"
+            keyPassword 'keypassword'
+        }
+        release {
+        storeFile file('/path/to/keystore')
+            storePassword 'storepassword'
+            keyAlias 'release'
+            keyPassword 'releasepassword'
+        }
+    }
     namespace 'com.example.fireroomv100'
     compileSdk 33
 
@@ -21,6 +36,10 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
+        }
+        debug {
+            signingConfig signingConfigs.debug
         }
     }
     compileOptions {
