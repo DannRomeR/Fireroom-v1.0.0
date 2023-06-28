@@ -1,8 +1,8 @@
 <resources>
+    <string name="default_web_client_id" translatable="false">174198111809-dnj1q81db4h5tsrndb72f1lfltjbuotq.apps.googleusercontent.com</string>
+
     <string name="app_name">Fireroom</string>
     <string name="title_activity_navigation">NavigationActivity</string>
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="nav_header_username">Firebase support agent</string>
     <string name="nav_header_email">ldap@google.com</string>
     <string name="nav_header_desc">Navigation header</string>
