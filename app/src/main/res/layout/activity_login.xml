@@ -15,7 +15,7 @@
             android:layout_height="wrap_content"
 
             android:padding="15dp"
-            tools:context=".LoginActivity">
+            tools:context=".ui.authenticate.LoginActivity">
 
             <TextView
                 android:id="@+id/title_label_textView"
@@ -94,7 +94,7 @@
                         android:backgroundTint="@color/firebase_navy"
                         android:ems="10"
                         android:hint="@string/password"
-                        android:inputType="numberPassword"
+                        android:inputType="text|textPassword|textNoSuggestions"
                         android:textColorHint="@color/firebase_navy"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
