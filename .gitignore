@@ -1,5 +1,6 @@
 *.iml
 app/build.gradle
+app/fireroom.jks
 .gradle
 /local.properties
 /.idea/caches
