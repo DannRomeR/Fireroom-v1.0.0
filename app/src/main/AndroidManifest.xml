@@ -20,17 +20,14 @@
             android:exported="true"
             android:label="@string/title_activity_navigation"
             android:theme="@style/Theme.FireroomV100.NoActionBar">
-
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".ui.authenticate.LoginActivity"
             android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-            <!--  -->
         </activity>
     </application>
 

@@ -21,7 +21,12 @@ class LoginViewModel @Inject constructor(
 //    fun onPasswordChange(password: String) {
 //        uiState = uiState.copy(password = password)
 //    }
-    suspend fun authenticateWithGoogle(idToken: String) {
+
+    fun authenticateWithGoogle(idToken: String) {
          accountService.authenticateWithCredential(idToken)
+    }
+
+    fun signOut() {
+       accountService.signOut()
     }
 }
