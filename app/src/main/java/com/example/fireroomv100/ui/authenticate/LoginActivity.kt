@@ -17,11 +17,13 @@ import com.google.android.gms.auth.api.identity.GetSignInIntentRequest
 import com.google.android.gms.auth.api.identity.Identity
 import com.google.android.gms.auth.api.identity.SignInClient
 import com.google.android.gms.common.api.ApiException
+import com.google.firebase.auth.FirebaseUser
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class LoginActivity : AppCompatActivity() {
+class LoginActivity : AppCompatActivity(),LoginViewModel.Navigator {
     private lateinit var googleSignInClient: SignInClient
+    private val viewModel: LoginViewModel by viewModels()
     private val googleSignInLauncher = registerForActivityResult(
         ActivityResultContracts.StartIntentSenderForResult()
     ) { result ->
@@ -34,16 +36,21 @@ class LoginActivity : AppCompatActivity() {
      */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        //Check whether the user exists before loading the UI to reduce the startup time and CPU usage
+        if(viewModel.isUserExists()){
+            navigateToMain(viewModel.getCurrentUser())
+        }
+        viewModel.navigator=this
         val loginBinding = LoginBinding.inflate(layoutInflater)
         googleSignInClient = Identity.getSignInClient(this)
         setContentView(loginBinding.root)
         // Adding to the UI the GoogleSignIn Flow
         loginBinding.googleLoginButton.setOnClickListener { googleSignIn() }
-        verifyIfUserExists()
+        //verifyIfUserExists()
     }
 
+    @Deprecated("Directly check the user availability with the the ViewModel and use NavigateToMain instead")
     private fun verifyIfUserExists() {
-        val viewModel: LoginViewModel by viewModels()
         if (!viewModel.isUserExists()) {
             Log.d(TAG, viewModel.isUserExists().toString())
             return
@@ -101,7 +108,7 @@ class LoginActivity : AppCompatActivity() {
      * @date 30/05/2023
      */
     private  fun googleSignInResultHandler(data: Intent?) {
-        val viewModel: LoginViewModel by viewModels()
+
 
         try {
             val credential = googleSignInClient.getSignInCredentialFromIntent(data)
@@ -110,13 +117,38 @@ class LoginActivity : AppCompatActivity() {
                 Log.d(TAG, "firebaseAuthWithGoogle: ${credential.id}")
                 viewModel.authenticateWithGoogle(idToken)
             }
-            if(viewModel.isUserExists()) {
+            //The following block is no longer necessary as the auth result will be reported
+            // throw the Navigator interface
+            /*if(viewModel.isUserExists()) {
                 verifyIfUserExists()
-            }
+            }*/
         } catch (e: ApiException) {
             // Google Sign In failed, update UI appropriately
             Log.w(TAG, "Google sign in failed", e)
         }
+    }
+
+    /**
+     * @author Daniel Mendoza
+     * @date July 19th
+     * Takes the user to the NavigationActivity
+     * @param user: A Firebase user
+     * */
+    override fun navigateToMain(user: FirebaseUser) {
+        Toast.makeText(this,"Welcome ${user.displayName}", Toast.LENGTH_SHORT).show()
+        val intent = Intent(this, NavigationActivity::class.java)
+        startActivity(intent)
+        finish()
+    }
+
+    /**
+     * @author Daniel Mendoza
+     * @date July 19th
+     * Callback: Reports an exception if a login operation fails
+     * @param loginException: The exception occurred during the login process
+     * */
+    override fun onAuthException(loginException: Exception) {
+        TODO("Not yet implemented")
     }
 
     /**
@@ -127,4 +159,6 @@ class LoginActivity : AppCompatActivity() {
     companion object {
         private const val TAG = "GoogleFragmentKt"
     }
+
+
 }

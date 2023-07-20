@@ -5,17 +5,6 @@ plugins {
     id 'kotlin-kapt'
     id 'com.google.dagger.hilt.android'
 }
-// LocalProperties added to add the changes from 'local.properties'
-// @author Ricardo Taboada
-// 30/06/2023
-def localProperties = new Properties()
-def localPropertiesFile = rootProject.file('local.properties')
-if (localPropertiesFile.exists()) {
-    localPropertiesFile.withReader('UTF-8') { reader ->
-        localProperties.load(reader)
-    }
-}
-
 
 android {
     signingConfigs {
@@ -81,6 +70,8 @@ dependencies {
     implementation 'androidx.navigation:navigation-ui-ktx:2.6.0'
     implementation 'com.google.android.gms:play-services-auth:20.6.0'
     implementation 'com.google.firebase:firebase-auth:22.0.0'
+    implementation 'com.google.android.gms:play-services-auth:20.5.0'
+    implementation 'com.google.firebase:firebase-common-ktx:20.3.3'
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
