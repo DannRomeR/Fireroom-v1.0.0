@@ -1,19 +1,19 @@
 <resources>
+    <string name="default_web_client_id" translatable="false">174198111809-dnj1q81db4h5tsrndb72f1lfltjbuotq.apps.googleusercontent.com</string>
+
     <string name="app_name">Fireroom</string>
-    <string name="title_activity_navigation">NavigationActivity</string>
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="nav_header_username">Firebase support agent</string>
-    <string name="nav_header_email">ldap@google.com</string>
-    <string name="nav_header_desc">Navigation header</string>
+    <string name="title_activity_navigation" translatable="false">NavigationActivity</string>
+    <string name="nav_header_username" translatable="false">Firebase support agent</string>
+    <string name="nav_header_email" translatable="false">ldap@google.com</string>
+    <string name="nav_header_desc" translatable="false">Navigation header</string>
     <string name="action_logout">Logout</string>
 
-    <string name="menu_posts">Posts</string>
-    <string name="menu_shifts">Shifts</string>
-    <string name="menu_onboarding">Onboarding</string>
+    <string name="menu_posts" translatable="false">Posts</string>
+    <string name="menu_shifts" translatable="false">Shifts</string>
+    <string name="menu_onboarding" translatable="false">Onboarding</string>
     <string name="photo_desc">Profile pic</string>
     <string name="sign_in">Sign In</string>
-    <string name="email">email</string>
+    <string name="email">Email</string>
     <string name="password">password</string>
     <string name="log_in">Log In</string>
     <string name="forgot_your_password">Forgot your password?</string>
@@ -22,11 +22,11 @@
     <string name="doesn_t_have_an_account">Doesn\'t have an account?</string>
     <string name="sign_up">Sign Up</string>
     <string name="add_post">Add post</string>
-    <string name="like">Like</string>
+    <string name="like" translatable="false">Like</string>
     <string name="comment">Comment</string>
     <string name="post_pic_description">Shared picture</string>
     <string name="agent_name">Agent name</string>
-    <string name="lorem_ipsum">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis vestibulum scelerisque luctus. Pellentesque ut malesuada orci. </string>
+    <string name="lorem_ipsum" translatable="false">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis vestibulum scelerisque luctus. Pellentesque ut malesuada orci. </string>
     <string name="phone_code_instructions">Input the verification code sent to your phone</string>
     <string name="phone_number_instructions">Input your phone number to send you a verification code by SMS</string>
     <string name="verification_code_hint">Verification code</string>

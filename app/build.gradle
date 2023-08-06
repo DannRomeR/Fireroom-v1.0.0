@@ -1,31 +1,33 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+    id 'com.google.gms.google-services'
+    id 'kotlin-kapt'
+    id 'com.google.dagger.hilt.android'
 }
 
 android {
     signingConfigs {
         debug {
-            storeFile file('/path/to/keystore')
-            storePassword 'storepassword'
-            keyAlias 'key0' // I name my first alias with this key, If the team wanted
-                            // I can change the alias to "debug"
-            keyPassword 'keypassword'
+            storeFile file(localProperties.getProperty("keystorePath"))
+            storePassword localProperties.getProperty("keystorePassword")
+            keyAlias localProperties.getProperty("keyDebugAlias")
+            keyPassword localProperties.getProperty("keyDebugAliasPassword")
         }
         release {
-        storeFile file('/path/to/keystore')
-            storePassword 'storepassword'
-            keyAlias 'release'
-            keyPassword 'releasepassword'
+            storeFile file(localProperties.getProperty("keystorePath"))
+            storePassword localProperties.getProperty("keystorePassword")
+            keyAlias localProperties.getProperty("keyReleaseAlias")
+            keyPassword localProperties.getProperty("keyReleaseAliasPassword")
         }
     }
     namespace 'com.example.fireroomv100'
-    compileSdk 33
+    compileSdk 34
 
     defaultConfig {
         applicationId "com.example.fireroomv100"
         minSdk 25
-        targetSdk 33
+        targetSdk 34
         versionCode 1
         versionName "1.0"
 
@@ -66,8 +68,18 @@ dependencies {
     implementation "androidx.cardview:cardview:1.0.0"
     implementation 'androidx.navigation:navigation-fragment-ktx:2.6.0'
     implementation 'androidx.navigation:navigation-ui-ktx:2.6.0'
+    implementation 'com.google.android.gms:play-services-auth:20.6.0'
+    implementation 'com.google.firebase:firebase-auth:22.0.0'
     implementation 'com.google.android.gms:play-services-auth:20.5.0'
+    implementation 'com.google.firebase:firebase-common-ktx:20.3.3'
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+    implementation "com.google.dagger:hilt-android:2.44"
+    kapt "com.google.dagger:hilt-compiler:2.44"
+}
+
+// Allow references to generated code
+kapt {
+    correctErrorTypes true
 }
