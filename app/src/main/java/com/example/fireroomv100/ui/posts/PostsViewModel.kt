@@ -14,14 +14,12 @@ class PostsViewModel : ViewModel() {
     private val _posts = MutableLiveData<MutableList<Entry>>()
     val posts: LiveData<MutableList<Entry>> = _posts
 
-    /**
-     * @author Daniel Mendoza
-     * TODO: Verify if the post is not null and insert it on the DB
-     * */
-    fun onPostResult(post: Entry?) {
-        if(post!=null){
-            postsList.add(post)
-            _posts.postValue(postsList)
-        }
+    fun createPost(author:String,text:String,imageUri:String?):Entry{
+        if(text.isEmpty()) throw Exception("Text cannot be empty")
+        val date=Date()
+        val post=Entry.Post(text,author,imageUri,date.toString())
+        postsList.add(post)
+        _posts.postValue(postsList)
+        return post
     }
 }
