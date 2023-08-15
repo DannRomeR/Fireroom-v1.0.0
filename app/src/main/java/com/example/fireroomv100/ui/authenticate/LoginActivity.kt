@@ -46,6 +46,7 @@ class LoginActivity : AppCompatActivity(),LoginViewModel.Navigator {
         setContentView(loginBinding.root)
         // Adding to the UI the GoogleSignIn Flow
         loginBinding.googleLoginButton.setOnClickListener { googleSignIn() }
+        
         //verifyIfUserExists()
     }
 

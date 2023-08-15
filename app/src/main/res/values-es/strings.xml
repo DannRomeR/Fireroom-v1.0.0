@@ -25,4 +25,6 @@
     <string name="confirm_password">Confirma tu contraseña</string>
     <string name="create_account">Crear cuenta</string>
     <string name="forgot_password_instructions">Ingresa tu correo electónico, si está vinculado a una cuenta, te enviaremos un link para restablecer tu contraseña</string>
+    <string name="take_pic">Tomar foto</string>
+    <string name="publication_date">Fecha de publicación</string>
 </resources>

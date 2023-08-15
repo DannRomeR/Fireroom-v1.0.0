@@ -36,4 +36,6 @@
     <string name="confirm_password">Confirm password</string>
     <string name="create_account">Create account</string>
     <string name="forgot_password_instructions">Enter your email below, if it is linked to an account, you will receive an email with instructions to reset your password</string>
+    <string name="take_pic">Take picture</string>
+    <string name="publication_date">Publication date</string>
 </resources>
