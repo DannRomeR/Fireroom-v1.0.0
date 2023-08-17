@@ -19,20 +19,18 @@ import com.google.android.gms.auth.api.identity.SignInClient
 import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
-import androidx.databinding.DataBindingUtil
-import com.example.fireroomv100.databinding.ActivityNavigationBinding
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+
+
 import dagger.hilt.android.AndroidEntryPoint
-import com.google.firebase.firestore.ktx.firestore
 
 @AndroidEntryPoint
 class LoginActivity : AppCompatActivity(),LoginViewModel.Navigator {
     private lateinit var googleSignInClient: SignInClient
     private val viewModel: LoginViewModel by viewModels()
-    private lateinit var auth: FirebaseAuth
-    lateinit var binding: ActivityNavigationBinding
-
+    private lateinit var loginBinding : LoginBinding
+    private lateinit var  auth: FirebaseAuth
     private val googleSignInLauncher = registerForActivityResult(
         ActivityResultContracts.StartIntentSenderForResult()
     ) { result ->
@@ -50,13 +48,32 @@ class LoginActivity : AppCompatActivity(),LoginViewModel.Navigator {
             navigateToMain(viewModel.getCurrentUser())
         }
         viewModel.navigator=this
-        val loginBinding = LoginBinding.inflate(layoutInflater)
+        auth = Firebase.auth
+        loginBinding = LoginBinding.inflate(layoutInflater)
         googleSignInClient = Identity.getSignInClient(this)
         setContentView(loginBinding.root)
         // Adding to the UI the GoogleSignIn Flow
         loginBinding.googleLoginButton.setOnClickListener { googleSignIn() }
         
         //verifyIfUserExists()
+        loginBinding.createAccountOptionTextView.setOnClickListener {
+            val intent = Intent( this, EmailCreateAccountActivity::class.java)
+            startActivity(intent)
+        }
+
+        loginBinding.emailLoginButton.setOnClickListener {
+            val userEmail = loginBinding.emailInputEdittext.text.toString()
+            val userPassword = loginBinding.passwordInputEditText.text.toString()
+            if (userEmail.length != 0 && userPassword.length != 0){
+                emailSignIn(userEmail, userPassword)
+//                Toast.makeText(this, "esta llegando", Toast.LENGTH_SHORT).show()
+
+            } else {
+                Toast.makeText(this, "Fill the required fields", Toast.LENGTH_SHORT).show()
+            }
+
+
+        }
     }
 
     @Deprecated("Directly check the user availability with the the ViewModel and use NavigateToMain instead")
@@ -66,10 +83,11 @@ class LoginActivity : AppCompatActivity(),LoginViewModel.Navigator {
             return
         }
         Toast.makeText(this,"User exists, yey!!!", Toast.LENGTH_SHORT).show()
-        val intent = Intent(this, RegisterActivity_data::class.java)
+        val intent = Intent(this, NavigationActivity::class.java)
         startActivity(intent)
         finish()
     }
+
     /**
      * Start the signing flow by building a new request for the Google Signing launcher with our
      * Project credentials.
@@ -117,6 +135,8 @@ class LoginActivity : AppCompatActivity(),LoginViewModel.Navigator {
      * @date 30/05/2023
      */
     private  fun googleSignInResultHandler(data: Intent?) {
+
+
         try {
             val credential = googleSignInClient.getSignInCredentialFromIntent(data)
             val idToken: String = credential.googleIdToken.orEmpty()
@@ -124,13 +144,6 @@ class LoginActivity : AppCompatActivity(),LoginViewModel.Navigator {
                 Log.d(TAG, "firebaseAuthWithGoogle: ${credential.id}")
                 viewModel.authenticateWithGoogle(idToken)
             }
-                 else {
-                    Toast.makeText(
-                        this, "Authentication failed.",
-                        Toast.LENGTH_SHORT
-                    ).show()
-            }
-
             //The following block is no longer necessary as the auth result will be reported
             // throw the Navigator interface
             /*if(viewModel.isUserExists()) {
@@ -142,6 +155,43 @@ class LoginActivity : AppCompatActivity(),LoginViewModel.Navigator {
         }
     }
 
+
+
+    private fun emailSignIn(email: String, password: String){
+        auth.signInWithEmailAndPassword(email, password)
+            .addOnSuccessListener(this) { result ->
+                val user = result.user
+                if (user != null) {
+                    // Sign in success, update UI with the signed-in user's information
+                    Log.d(TAG, "signInWithEmail:success")
+
+                    Toast.makeText(baseContext, "Login successful", Toast.LENGTH_SHORT).show()
+                    navigateToMain(user)
+
+//                    updateUI(user)
+                }
+            }.addOnFailureListener {
+                // If sign in fails, display a message to the user.
+                Log.w(TAG, "signInWithEmail:failure", it )
+                Toast.makeText(
+                    baseContext,
+                    "Authentication failed.",
+                    Toast.LENGTH_SHORT,
+                ).show()
+//                    updateUI(null)
+            }
+
+    }
+
+
+
+
+
+
+
+
+
+
     /**
      * @author Daniel Mendoza
      * @date July 19th
@@ -150,13 +200,9 @@ class LoginActivity : AppCompatActivity(),LoginViewModel.Navigator {
      * */
     override fun navigateToMain(user: FirebaseUser) {
         Toast.makeText(this,"Welcome ${user.displayName}", Toast.LENGTH_SHORT).show()
-        movetoregister()
-    }
-
-    private fun movetoregister() {
-        val infoUserIntent = Intent(this, RegisterActivity_data::class.java)
-        startActivity(infoUserIntent)
-        this.finish()
+        val intent = Intent(this, NavigationActivity::class.java)
+        startActivity(intent)
+        finish()
     }
 
     /**
@@ -175,6 +221,8 @@ class LoginActivity : AppCompatActivity(),LoginViewModel.Navigator {
      * @date 30/05/2023
      */
     companion object {
-        private const val TAG = "GoogleFragmentKt"
+        const val TAG = "GoogleFragmentKt"
     }
+
+
 }

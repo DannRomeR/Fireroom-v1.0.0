@@ -33,6 +33,8 @@ class AccountServiceImpl @Inject constructor(
 
     override fun authenticateWithEmail(email: String, password: String) {
         TODO("Not yet implemented")
+
+
     }
     override fun linkAccount(email: String, password: String) {}
 

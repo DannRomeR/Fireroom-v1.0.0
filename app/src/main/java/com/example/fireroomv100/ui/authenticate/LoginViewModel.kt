@@ -78,5 +78,6 @@ class LoginViewModel @Inject constructor(
     interface Navigator{
         fun navigateToMain(user: FirebaseUser)
         fun onAuthException(loginException:Exception)
+//        fun emailSignIn()
     }
 }
