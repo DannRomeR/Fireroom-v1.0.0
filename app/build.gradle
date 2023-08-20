@@ -8,18 +8,20 @@ plugins {
 
 android {
     signingConfigs {
-        debug {
-            storeFile file(localProperties.getProperty("keystorePath"))
-            storePassword localProperties.getProperty("keystorePassword")
-            keyAlias localProperties.getProperty("keyDebugAlias")
-            keyPassword localProperties.getProperty("keyDebugAliasPassword")
-        }
-        release {
-            storeFile file(localProperties.getProperty("keystorePath"))
-            storePassword localProperties.getProperty("keystorePassword")
-            keyAlias localProperties.getProperty("keyReleaseAlias")
-            keyPassword localProperties.getProperty("keyReleaseAliasPassword")
-        }
+        debug
+            {
+        storeFile file('fireroom.jks')
+        storePassword '75e4Teotl'
+        keyAlias 'key0'
+        // I name my first alias with this key, If the team wanted
+        // I can change the alias to "debug"
+        keyPassword 'HogLg8NRh' }
+        release
+                {
+        storeFile file('fireroom.jks')
+        storePassword '75e4Teotl'
+        keyAlias 'release'
+        keyPassword 'aLWcyko0a' }
     }
     namespace 'com.example.fireroomv100'
     compileSdk 34
@@ -69,9 +71,11 @@ dependencies {
     implementation 'androidx.navigation:navigation-fragment-ktx:2.6.0'
     implementation 'androidx.navigation:navigation-ui-ktx:2.6.0'
     implementation 'com.google.android.gms:play-services-auth:20.6.0'
-    implementation 'com.google.firebase:firebase-auth:22.0.0'
-    implementation 'com.google.android.gms:play-services-auth:20.5.0'
+    implementation 'com.google.firebase:firebase-auth:22.1.0'
+    implementation 'com.google.android.gms:play-services-auth:20.6.0'
     implementation 'com.google.firebase:firebase-common-ktx:20.3.3'
+    implementation 'com.google.firebase:firebase-auth-ktx:22.1.0'
+    implementation 'com.google.firebase:firebase-firestore-ktx:24.7.0'
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
