@@ -27,5 +27,5 @@ interface AccountService {
         activity: AppCompatActivity,
         phone: String,
         callbacks: OnVerificationStateChangedCallbacks
-    ): Any
+    )
 }

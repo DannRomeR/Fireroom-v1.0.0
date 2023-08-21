@@ -22,11 +22,10 @@ import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import androidx.appcompat.app.AlertDialog
+import androidx.databinding.ViewDataBinding
 import com.example.fireroomv100.databinding.PhoneNumberInputBinding
 import com.example.fireroomv100.databinding.VerificationCodeInputBinding
-import com.google.firebase.FirebaseException
-import com.google.firebase.auth.PhoneAuthCredential
-import com.google.firebase.auth.PhoneAuthProvider
+
 
 
 import dagger.hilt.android.AndroidEntryPoint
@@ -175,7 +174,11 @@ class LoginActivity : AppCompatActivity(),LoginViewModel.Navigator {
 
     }
 
-
+    private fun createDialog(dataBinding: ViewDataBinding): AlertDialog {
+        val dialogBuilder = AlertDialog.Builder(this)
+        dialogBuilder.setView(dataBinding.root)
+        return dialogBuilder.create()
+    }
 
     /**
      * Phone Authentication
@@ -183,56 +186,24 @@ class LoginActivity : AppCompatActivity(),LoginViewModel.Navigator {
      * @author Ricardo Taboada
      */
     private fun phoneSignIn() {
-        val self = this
-        val dialogBuilder = AlertDialog.Builder(this)
-        // Get the Layout inflater
         val phoneNumberInputBinding = PhoneNumberInputBinding.inflate(layoutInflater)
         val verificationCodeInputBinding = VerificationCodeInputBinding.inflate(layoutInflater)
-
-        dialogBuilder.setView(phoneNumberInputBinding.root)
-        val phoneDialog = dialogBuilder.create()
-        dialogBuilder.setView(verificationCodeInputBinding.root)
-        val verificationDialog = dialogBuilder.create()
-        var verificationIdString = ""
-        val phoneCallbacks = object: PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
-            override fun onCodeSent(verificationId: String, p1: PhoneAuthProvider.ForceResendingToken) {
-                Log.d(TAG, "onCodeSent:$verificationId")
-                verificationIdString = verificationId
-            }
-            override fun onVerificationCompleted(p0: PhoneAuthCredential) {
-                verificationDialog.dismiss()
-                viewModel.authenticateWithCredential(p0)
-                Log.d(TAG, "onVerificationCompleted:$p0")
-
-            }
-            override fun onVerificationFailed(p0: FirebaseException) {
-                p0.localizedMessage?.let { Log.d(TAG, it) }
-                phoneDialog.dismiss()
-                verificationDialog.dismiss()
-                Toast.makeText(self, "Error on login ${p0.localizedMessage}", Toast.LENGTH_SHORT).show()
-            }
-        }
+        val phoneDialog = createDialog(phoneNumberInputBinding)
+        val verificationDialog = createDialog(verificationCodeInputBinding)
 
         phoneNumberInputBinding.confirmPhoneNumberButton.setOnClickListener {
-            val phoneInput = phoneNumberInputBinding.verificationCodeEditText.text.toString()
-            if (phoneInput.isEmpty()) {
-                phoneDialog.dismiss()
-                return@setOnClickListener
-            }
-            viewModel.getPhoneAuthOptions(self, phoneInput, phoneCallbacks)
+            val inputNumber = phoneNumberInputBinding.verificationCodeEditText.text.toString()
+            viewModel.startPhoneAuthentication(this, verificationDialog, inputNumber)
             phoneDialog.dismiss()
-            verificationDialog.show()
         }
-
         verificationCodeInputBinding.confirmPhoneCodeButton.setOnClickListener {
-            val verificationCode = verificationCodeInputBinding.verificationCodeEditText.text.toString()
-            val credential = PhoneAuthProvider.getCredential(verificationIdString, verificationCode)
-            viewModel.authenticateWithCredential(credential)
-            verificationDialog.dismiss()
+            val inputCode = verificationCodeInputBinding.verificationCodeEditText.text.toString()
+            viewModel.completePhoneAuthentication(verificationDialog, inputCode)
         }
+        phoneNumberInputBinding.cancelPhoneNumberButton.setOnClickListener { viewModel.cancelPhoneAuth(phoneDialog) }
+        verificationCodeInputBinding.cancelPhoneCodeButton.setOnClickListener { viewModel.cancelPhoneAuth(verificationDialog) }
 
-        phoneNumberInputBinding.cancelPhoneNumberButton.setOnClickListener { phoneDialog.dismiss() }
-        verificationCodeInputBinding.cancelPhoneCodeButton.setOnClickListener { verificationDialog.dismiss() }
+        //Start phone flow by showing the first alert dialog
         phoneDialog.show()
     }
     /**

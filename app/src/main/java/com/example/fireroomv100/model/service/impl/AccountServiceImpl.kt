@@ -54,13 +54,13 @@ class AccountServiceImpl @Inject constructor(
         activity: AppCompatActivity,
         phone: String,
         callbacks: PhoneAuthProvider.OnVerificationStateChangedCallbacks
-    ): Any {
+    ) {
         val options = PhoneAuthOptions.newBuilder(auth)
             .setPhoneNumber(phone)
             .setTimeout(60L, TimeUnit.SECONDS)
             .setActivity(activity)
             .setCallbacks(callbacks)
             .build()
-        return PhoneAuthProvider.verifyPhoneNumber(options)
+        PhoneAuthProvider.verifyPhoneNumber(options)
     }
 }
