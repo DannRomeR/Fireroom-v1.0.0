@@ -1,9 +1,11 @@
 package com.example.fireroomv100.model.service
 
+import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.AuthCredential
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.auth.PhoneAuthProvider.OnVerificationStateChangedCallbacks
 
 interface AccountService {
     val currentUserId: String
@@ -21,4 +23,9 @@ interface AccountService {
     fun linkAccount(email: String, password: String)
     fun deleteAccount()
     fun signOut()
+    fun getPhoneOptions(
+        activity: AppCompatActivity,
+        phone: String,
+        callbacks: OnVerificationStateChangedCallbacks
+    ): Any
 }
