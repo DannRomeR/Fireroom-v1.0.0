@@ -31,9 +31,7 @@ class LoginActivity : AppCompatActivity(),LoginViewModel.Navigator {
     private val viewModel: LoginViewModel by viewModels()
     private lateinit var loginBinding : LoginBinding
     private lateinit var  auth: FirebaseAuth
-    private val googleSignInLauncher = registerForActivityResult(
-        ActivityResultContracts.StartIntentSenderForResult()
-    ) { result ->
+    private val googleSignInLauncher = registerForActivityResult( ActivityResultContracts.StartIntentSenderForResult()) { result ->
         Log.d(TAG, "Called GoogleSignInLauncher")
         googleSignInResultHandler(result.data)
     }
@@ -54,24 +52,14 @@ class LoginActivity : AppCompatActivity(),LoginViewModel.Navigator {
         setContentView(loginBinding.root)
         // Adding to the UI the GoogleSignIn Flow
         loginBinding.googleLoginButton.setOnClickListener { googleSignIn() }
-        //verifyIfUserExists()
+        // Adding Phone signing flow
+        loginBinding.phoneLoginButton.setOnClickListener { phoneSignIn() }
+        // Adding email flow
+        loginBinding.emailLoginButton.setOnClickListener { emailSignIn() }
+
         loginBinding.createAccountOptionTextView.setOnClickListener {
             val intent = Intent( this, EmailCreateAccountActivity::class.java)
             startActivity(intent)
-        }
-
-        loginBinding.emailLoginButton.setOnClickListener {
-            val userEmail = loginBinding.emailInputEdittext.text.toString()
-            val userPassword = loginBinding.passwordInputEditText.text.toString()
-            if (userEmail.length != 0 && userPassword.length != 0){
-                emailSignIn(userEmail, userPassword)
-//                Toast.makeText(this, "esta llegando", Toast.LENGTH_SHORT).show()
-
-            } else {
-                Toast.makeText(this, "Fill the required fields", Toast.LENGTH_SHORT).show()
-            }
-
-
         }
     }
 
@@ -134,8 +122,6 @@ class LoginActivity : AppCompatActivity(),LoginViewModel.Navigator {
      * @date 30/05/2023
      */
     private  fun googleSignInResultHandler(data: Intent?) {
-
-
         try {
             val credential = googleSignInClient.getSignInCredentialFromIntent(data)
             val idToken: String = credential.googleIdToken.orEmpty()
@@ -143,20 +129,20 @@ class LoginActivity : AppCompatActivity(),LoginViewModel.Navigator {
                 Log.d(TAG, "firebaseAuthWithGoogle: ${credential.id}")
                 viewModel.authenticateWithGoogle(idToken)
             }
-            //The following block is no longer necessary as the auth result will be reported
-            // throw the Navigator interface
-            /*if(viewModel.isUserExists()) {
-                verifyIfUserExists()
-            }*/
         } catch (e: ApiException) {
             // Google Sign In failed, update UI appropriately
             Log.w(TAG, "Google sign in failed", e)
+
         }
     }
 
-
-
-    private fun emailSignIn(email: String, password: String){
+    private fun emailSignIn(){
+        val email = loginBinding.emailInputEdittext.text.toString()
+        val password = loginBinding.passwordInputEditText.text.toString()
+        if (email.isEmpty() || password.isEmpty()) {
+            Toast.makeText(this, "Fill the required fields", Toast.LENGTH_SHORT).show()
+            return
+        }
         auth.signInWithEmailAndPassword(email, password)
             .addOnSuccessListener(this) { result ->
                 val user = result.user
