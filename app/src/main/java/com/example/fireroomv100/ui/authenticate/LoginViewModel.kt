@@ -1,11 +1,14 @@
 package com.example.fireroomv100.ui.authenticate
 
+import androidx.appcompat.app.AppCompatActivity
 import com.example.fireroomv100.model.service.AccountService
 import com.example.fireroomv100.model.service.LogService
 import com.example.fireroomv100.ui.MyApplicationViewModel
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
+import com.google.firebase.auth.PhoneAuthCredential
+import com.google.firebase.auth.PhoneAuthProvider
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
@@ -19,14 +22,6 @@ class LoginViewModel @Inject constructor(
 
     fun isUserExists() = accountService.hasUser
     fun getCurrentUser()=accountService.currentUser
-
-//    private var uiState = LoginUiState()
-//    fun onEmailChange(email: String) {
-//        uiState = uiState.copy(email = email)
-//    }
-//    fun onPasswordChange(password: String) {
-//        uiState = uiState.copy(password = password)
-//    }
 
     /**
      * Last modification by Daniel Mendoza
@@ -68,6 +63,20 @@ class LoginViewModel @Inject constructor(
 
     fun signOut() {
        accountService.signOut()
+    }
+
+    fun getPhoneAuthOptions(activity: AppCompatActivity, phoneInput: String, callbacks: PhoneAuthProvider.OnVerificationStateChangedCallbacks) {
+        accountService.getPhoneOptions(activity, phoneInput, callbacks)
+    }
+
+    fun authenticateWithCredential(p0: PhoneAuthCredential) {
+        accountService.authenticateWithCredential(p0)
+            .addOnSuccessListener {
+                onLoginSuccessful(it)
+            }
+            .addOnFailureListener{
+                onLoginFailed(it)
+            }
     }
 
     /**
