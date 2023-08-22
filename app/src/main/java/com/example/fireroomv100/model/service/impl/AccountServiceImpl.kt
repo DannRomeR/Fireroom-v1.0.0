@@ -42,7 +42,6 @@ class AccountServiceImpl @Inject constructor(
 
     override  fun signOut() {
         if (auth.currentUser == null) return
-        auth.currentUser!!.delete()
         auth.signOut()
     }
 }
