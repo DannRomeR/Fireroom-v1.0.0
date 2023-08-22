@@ -10,7 +10,8 @@ import com.google.firebase.auth.GoogleAuthProvider
 import java.lang.Exception
 import javax.inject.Inject
 
-class AccountServiceImpl @Inject constructor(
+class
+AccountServiceImpl @Inject constructor(
     private val auth: FirebaseAuth
 ) : AccountService {
     override val currentUserId: String
@@ -37,12 +38,12 @@ class AccountServiceImpl @Inject constructor(
     override fun linkAccount(email: String, password: String) {}
 
     override  fun deleteAccount() {
-        auth.currentUser!!.delete()
+        //auth.currentUser!!.delete()
     }
 
     override  fun signOut() {
         if (auth.currentUser == null) return
-        auth.currentUser!!.delete()
+        //auth.currentUser!!.delete()
         auth.signOut()
     }
 }
