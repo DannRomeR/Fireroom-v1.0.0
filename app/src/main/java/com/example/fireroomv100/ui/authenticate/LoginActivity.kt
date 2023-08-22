@@ -19,8 +19,6 @@ import com.google.android.gms.auth.api.identity.SignInClient
 import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.ktx.Firebase
 import androidx.appcompat.app.AlertDialog
 import androidx.databinding.ViewDataBinding
 import com.example.fireroomv100.databinding.PhoneNumberInputBinding
@@ -53,7 +51,6 @@ class LoginActivity : AppCompatActivity(),LoginViewModel.Navigator {
             navigateToMain(viewModel.getCurrentUser())
         }
         viewModel.navigator=this
-        auth = Firebase.auth
         loginBinding = LoginBinding.inflate(layoutInflater)
         googleSignInClient = Identity.getSignInClient(this)
         setContentView(loginBinding.root)
@@ -139,6 +136,7 @@ class LoginActivity : AppCompatActivity(),LoginViewModel.Navigator {
         } catch (e: ApiException) {
             // Google Sign In failed, update UI appropriately
             Log.w(TAG, "Google sign in failed", e)
+
         }
     }
 
