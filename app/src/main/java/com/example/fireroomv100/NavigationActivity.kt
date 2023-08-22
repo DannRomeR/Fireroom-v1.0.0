@@ -76,8 +76,8 @@ class NavigationActivity : AppCompatActivity() {
         val id: Int = item.itemId
         val viewModel: LoginViewModel by viewModels()
         if (id  == R.id.action_settings_logout) {
-           viewModel.signOut()
-        checkToJumpToLoginActivity()
+            viewModel.signOut()
+            checkToJumpToLoginActivity()
         }
         return true
     }
