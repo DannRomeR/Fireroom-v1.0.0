@@ -6,10 +6,7 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import com.example.fireroomv100.NavigationActivity
-import com.example.fireroomv100.R
-//import com.example.fireroomv100.databinding.ActivityEmailCreateAccount
 import com.example.fireroomv100.databinding.EmailCreateAccountBinding
-import com.example.fireroomv100.databinding.LoginBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
@@ -60,7 +57,6 @@ class EmailCreateAccountActivity : AppCompatActivity() {
 
     /**
      * This method creates the User & password account with the Firebase Auth method
-
      * @author Alan Cruz
      * @date 16/08/2023
      */
@@ -68,11 +64,14 @@ class EmailCreateAccountActivity : AppCompatActivity() {
         auth.createUserWithEmailAndPassword(email, password)
             .addOnSuccessListener(this) { result ->
                 val user = result.user
+                val currentUser = auth.currentUser!!
                 if (user != null) {
                     // Sign in success, update UI with the signed-in user's information
                     Log.d(LoginActivity.TAG, "signInWithEmail:success")
+                    currentUser.sendEmailVerification().addOnCompleteListener(this){task ->}
 
                     Toast.makeText(baseContext, "Login successful", Toast.LENGTH_SHORT).show()
+
                     navigateToMain(user)
 
 //                    updateUI(user)
