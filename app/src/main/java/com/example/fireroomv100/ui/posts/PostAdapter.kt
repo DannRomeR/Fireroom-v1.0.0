@@ -29,7 +29,7 @@ class PostAdapter:RecyclerView.Adapter<PostAdapter.PostViewHolder>() {
      */
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostViewHolder {
         val inflater=LayoutInflater.from(parent.context)
-        val binding=RowPostBinding.inflate(inflater)
+        val binding=RowPostBinding.inflate(inflater,parent,false)
         return PostViewHolder(binding)
     }
 
