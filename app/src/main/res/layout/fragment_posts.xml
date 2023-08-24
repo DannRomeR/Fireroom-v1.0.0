@@ -1,45 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <data class="PostsBinding"/>
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <ScrollView
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/list_post_recyclerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
-            android:paddingHorizontal="10dp"
-            tools:context=".ui.posts.PostsFragment">
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <include
-                    layout="@layout/row_post"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"/>
-
-                <include
-                    layout="@layout/row_post"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp" />
-
-                <include
-                    layout="@layout/row_post"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"/>
-            </LinearLayout>
-
-
-        </ScrollView>
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fabAddPost"
+            android:id="@+id/create_post_fab"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|end"

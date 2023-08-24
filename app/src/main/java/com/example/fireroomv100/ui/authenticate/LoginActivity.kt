@@ -21,7 +21,6 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import androidx.appcompat.app.AlertDialog
 import androidx.databinding.ViewDataBinding
-import com.example.fireroomv100.databinding.ForgotPasswordInputBinding
 import com.example.fireroomv100.databinding.PhoneNumberInputBinding
 import com.example.fireroomv100.databinding.VerificationCodeInputBinding
 
@@ -34,9 +33,10 @@ class LoginActivity : AppCompatActivity(),LoginViewModel.Navigator {
     private lateinit var googleSignInClient: SignInClient
     private val viewModel: LoginViewModel by viewModels()
     private lateinit var loginBinding : LoginBinding
-    private lateinit var forgotPasswordBinding : ForgotPasswordInputBinding
-    private val  auth: FirebaseAuth = FirebaseAuth.getInstance()
-    private val googleSignInLauncher = registerForActivityResult( ActivityResultContracts.StartIntentSenderForResult()) { result ->
+    private lateinit var  auth: FirebaseAuth
+    private val googleSignInLauncher = registerForActivityResult(
+        ActivityResultContracts.StartIntentSenderForResult()
+    ) { result ->
         Log.d(TAG, "Called GoogleSignInLauncher")
         googleSignInResultHandler(result.data)
     }
@@ -52,7 +52,6 @@ class LoginActivity : AppCompatActivity(),LoginViewModel.Navigator {
         }
         viewModel.navigator=this
         loginBinding = LoginBinding.inflate(layoutInflater)
-        forgotPasswordBinding = ForgotPasswordInputBinding.inflate(layoutInflater)
         googleSignInClient = Identity.getSignInClient(this)
         setContentView(loginBinding.root)
         // Adding to the UI the GoogleSignIn Flow
@@ -62,15 +61,11 @@ class LoginActivity : AppCompatActivity(),LoginViewModel.Navigator {
         // Adding email flow
         loginBinding.emailLoginButton.setOnClickListener { emailSignIn() }
 
-        loginBinding.forgotPasswordOptionTextView.setOnClickListener { forgotPasswordShow() }
-
         loginBinding.createAccountOptionTextView.setOnClickListener {
             val intent = Intent( this, EmailCreateAccountActivity::class.java)
             startActivity(intent)
         }
     }
-
-
 
     @Deprecated("Directly check the user availability with the the ViewModel and use NavigateToMain instead")
     private fun verifyIfUserExists() {
@@ -145,12 +140,6 @@ class LoginActivity : AppCompatActivity(),LoginViewModel.Navigator {
         }
     }
 
-    /**
-     * Email sign in method, it verifies if the email content or password content are empty
-     * If they are not empty, the sign in process continues
-     * @author Alan Cruz
-     * @date 17/08/2023
-     */
     private fun emailSignIn(){
         val email = loginBinding.emailInputEdittext.text.toString()
         val password = loginBinding.passwordInputEditText.text.toString()
@@ -183,64 +172,10 @@ class LoginActivity : AppCompatActivity(),LoginViewModel.Navigator {
 
     }
 
-
-    /**
-     * Forgot password Show method, this method shows a Dialog so you can enter your email, if the text is not empty,
-     * Another method named sendPasswordReset it called
-     * @author Alan Cruz
-     * @date 23/08/2023
-     */
-    private fun forgotPasswordShow() {
-        Toast.makeText(this, "Click forgot", Toast.LENGTH_SHORT).show()
-        val forgotPasswordDialogBinding  = ForgotPasswordInputBinding.inflate(layoutInflater)
-        val forgotPasswordDialog = createDialog(forgotPasswordDialogBinding)
-        forgotPasswordDialog.show()
-
-        forgotPasswordDialogBinding.cancelEmailButton.setOnClickListener { forgotPasswordDialog.dismiss() }
-
-        forgotPasswordDialogBinding.confirmEmailButton.setOnClickListener {
-            val inputEmailReset = forgotPasswordDialogBinding.emailInputEditText.text.toString()
-            if (inputEmailReset.isNotEmpty()){
-                forgotPasswordDialog.dismiss()
-                sendPasswordReset(inputEmailReset)
-//                Toast.makeText(this, "${inputEmailReset}", Toast.LENGTH_SHORT).show()
-            } else{
-                Toast.makeText(this, "Type your email", Toast.LENGTH_SHORT).show()
-            }
-
-
-
-        }
-
-    }
-    /**
-     * sendPasswordReset method, here the Firebase auth sendPasswordResetEmail is called
-     * this send a email to the email account so the user can reset the password
-     * @author Alan Cruz
-     * @date 23/08/2023
-     */
-    private fun sendPasswordReset(email: String){
-        auth.sendPasswordResetEmail(email)
-            .addOnSuccessListener  {
-                Toast.makeText(baseContext, "Check your email account", Toast.LENGTH_SHORT).show()
-            }. addOnFailureListener{
-                Log.e("Error send password reset", it.toString())
-                Toast.makeText(baseContext, "Something failed, try again", Toast.LENGTH_SHORT).show()
-            }
-
-    }
-
-
-
-
-
-
     private fun createDialog(dataBinding: ViewDataBinding): AlertDialog {
         val dialogBuilder = AlertDialog.Builder(this)
         dialogBuilder.setView(dataBinding.root)
         return dialogBuilder.create()
-
-
     }
 
     /**

@@ -41,10 +41,10 @@ class NavigationActivity : AppCompatActivity() {
     }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        checkToJumpToLoginActivity()
         binding = ActivityNavigationBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setSupportActionBar(binding.appBarNavigation.toolbar)
-
         val drawerLayout: DrawerLayout = binding.drawerLayout
         val navView: NavigationView = binding.navView
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment_content_navigation) as NavHostFragment
