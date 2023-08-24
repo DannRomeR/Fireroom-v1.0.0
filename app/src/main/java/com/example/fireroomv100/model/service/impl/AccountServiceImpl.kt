@@ -1,5 +1,6 @@
 package com.example.fireroomv100.model.service.impl
 
+import androidx.appcompat.app.AppCompatActivity
 import com.example.fireroomv100.model.service.AccountService
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.AuthCredential
@@ -7,6 +8,7 @@ import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
+import com.google.firebase.auth.PhoneAuthProvider
 import java.lang.Exception
 import javax.inject.Inject
 
@@ -45,5 +47,13 @@ AccountServiceImpl @Inject constructor(
         if (auth.currentUser == null) return
         //auth.currentUser!!.delete()
         auth.signOut()
+    }
+
+    override fun getPhoneOptions(
+        activity: AppCompatActivity,
+        phone: String,
+        callbacks: PhoneAuthProvider.OnVerificationStateChangedCallbacks
+    ) {
+        TODO("Not yet implemented")
     }
 }

@@ -90,9 +90,9 @@ class EmailCreateAccountActivity : AppCompatActivity() {
     }
 
      fun navigateToMain(user: FirebaseUser) {
-        Toast.makeText(this,"Welcome ${user.displayName}", Toast.LENGTH_SHORT).show()
-        val intent = Intent(this, NavigationActivity::class.java)
-        startActivity(intent)
-        finish()
+         Toast.makeText(this,"Welcome ${user.displayName}", Toast.LENGTH_SHORT).show()
+         val intent = Intent(this, RegisterActivity_data::class.java)
+         startActivity(intent)
+         finish()
     }
 }

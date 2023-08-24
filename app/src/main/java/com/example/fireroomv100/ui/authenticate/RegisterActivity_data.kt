@@ -60,7 +60,11 @@ class RegisterActivity_data : AppCompatActivity() {
         }
         auth = Firebase.auth
     }
-
+    /**
+     * Starting the user credentials
+     * @author Jesus Rodriguez
+     * @date 11/08/2023
+     */
     override fun onStart() {
         super.onStart()
 
@@ -70,7 +74,11 @@ class RegisterActivity_data : AppCompatActivity() {
         } else {
         }
     }
-
+    /**
+     * Fields to be completed by the user to store their data
+     * @author Jesus Rodriguez
+     * @date 09/08/2023
+     */
     private fun registrarUsuario(
         nombre: String,
         email: String,
@@ -113,7 +121,11 @@ class RegisterActivity_data : AppCompatActivity() {
         }
         }
         */
-
+    /**
+     * Redirecting Activity
+     * @author Jesus Rodriguez
+     * @date 09/08/2023
+     */
     private fun infoUser() {
         val infoUserIntent = Intent(this, NavigationActivity::class.java)
         startActivity(infoUserIntent)
